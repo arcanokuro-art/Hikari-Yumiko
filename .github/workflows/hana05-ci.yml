@@ -1,0 +1,35 @@
+name: Hikari HANA-0.5 CPU experiments
+on:
+  pull_request:
+    branches: [experiments/hana-0-4]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiments:
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [7, 19, 43]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPERIMENT_SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m unittest discover -s tests -v
+      - name: Compare halting on matched graphs
+        shell: bash
+        run: |
+          mkdir metrics
+          python -m hikari.hana05_experiment --seed "$EXPERIMENT_SEED" > metrics/memory.json
+          python -m hikari.hana05_experiment --seed "$EXPERIMENT_SEED" --no-memory > metrics/no-memory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hana05-cpu-seed-${{ matrix.seed }}
+          path: metrics/
