@@ -1,0 +1,36 @@
+name: Hikari HANA-0.6 CPU experiments
+on:
+  pull_request:
+    branches: [experiments/hana-0-5]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiments:
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [7, 19, 43]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPERIMENT_SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m unittest discover -s tests -v
+      - name: Compare uncertain reasoning, abstention and calibration
+        shell: bash
+        run: |
+          mkdir metrics
+          for variant in shared no-confidence no-memory recurrent; do
+            python -m hikari.hana06_experiment --seed "$EXPERIMENT_SEED" --variant "$variant" > "metrics/$variant.json"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hana06-cpu-seed-${{ matrix.seed }}
+          path: metrics/
