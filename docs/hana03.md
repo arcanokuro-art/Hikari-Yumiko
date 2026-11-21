@@ -33,7 +33,7 @@ entrenamiento y el entorno Python/PyTorch.
 python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
 python -m unittest discover -s tests -v
 for seed in 7 19 43; do
-  for model in penalized unpenalized memory-128 adaptive fixed-1 znc gru; do
+  for model in penalized unpenalized memory-128 adaptive fixed-1 fixed-1-128 znc gru; do
     python -m hikari.hana03_experiment --model "$model" --seed "$seed"
   done
 done

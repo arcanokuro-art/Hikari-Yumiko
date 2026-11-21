@@ -8,12 +8,13 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from .hana02 import HANA02
 from .hana02_experiment import VOCAB, make_model, median_latency
 from .hana03 import HANA03
 from .train import make_batch
 
 
-MODELS = ("penalized", "unpenalized", "memory-128", "adaptive", "fixed-1", "znc", "gru")
+MODELS = ("penalized", "unpenalized", "memory-128", "adaptive", "fixed-1", "fixed-1-128", "znc", "gru")
 TRAIN = (("cyclic", 0), ("recall", 8), ("recall", 40))
 EVAL = (*TRAIN, ("recall", 52), ("recall", 80))
 
@@ -51,7 +52,12 @@ def inspect_task(model, task, gap, seed):
 def run(name, seed, steps, batch):
     torch.manual_seed(seed)
     experimental = name in MODELS[:3]
-    model = HANA03(VOCAB, memory_slots=128 if name == "memory-128" else 64) if experimental else make_model(name)
+    if experimental:
+        model = HANA03(VOCAB, memory_slots=128 if name == "memory-128" else 64)
+    elif name == "fixed-1-128":
+        model = HANA02(VOCAB, memory_slots=128, fixed_cycles=1)
+    else:
+        model = make_model(name)
     coefficient = 0.035 if name in ("penalized", "memory-128") else 0.0
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.003)
     torch.manual_seed(seed + 1000)
