@@ -1,0 +1,36 @@
+name: Hikari HANA-0.4 CPU experiments
+on:
+  pull_request:
+    branches: [experiments/hana-0-3]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiments:
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [7, 19, 43]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPERIMENT_SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m unittest discover -s tests -v
+      - name: Compare neural reasoning variants
+        shell: bash
+        run: |
+          mkdir metrics
+          for model in adaptive no-cost no-memory fixed-1 fixed-2 fixed-3 hana03 znc gru; do
+            python -m hikari.hana04_experiment --model "$model" --seed "$EXPERIMENT_SEED" > "metrics/$model.json"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hana04-cpu-seed-${{ matrix.seed }}
+          path: metrics/
