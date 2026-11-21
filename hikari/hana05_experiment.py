@@ -32,23 +32,27 @@ def train(seed, steps, use_memory):
     return model.eval(), time.perf_counter() - start
 
 
-def evaluate(model, query, target, depth, policy, budgets, use_memory):
+def evaluate(model, query, target, depth, policy, budgets, use_memory, original=None):
     route = "fixed" if policy.startswith("fixed") else policy
     if route == "fixed":
         budgets = torch.full_like(target, int(policy[-1]))
     options = {"budgets": budgets, "use_memory": use_memory}
     logits, cycles, certified = model.infer(query, route, **options)
     sample = query.select(slice(0, 1))
-    options["budgets"] = budgets[:1]
     for _ in range(3):
-        model.infer(sample, route, **options)
+        model.infer(sample, route, budgets=budgets[:1], use_memory=use_memory)
     timings = []
-    for _ in range(11):
+    for index in range(11):
+        selection = slice(index, index + 1)
+        sample = query.select(selection)
+        sample_budget = budgets[selection]
         start = time.perf_counter()
-        model.infer(sample, route, **options)
+        model.infer(sample, route, budgets=sample_budget, use_memory=use_memory)
         timings.append((time.perf_counter() - start) * 1000)
-    return {
-        "accuracy": logits.argmax(1).eq(target).float().mean().item(),
+    answers = logits.argmax(1)
+    correct = answers.eq(target)
+    metrics = {
+        "accuracy": correct.float().mean().item(),
         "mean_cycles": cycles.float().mean().item(),
         "early_count": cycles.lt(depth).sum().item(),
         "exact_count": cycles.eq(depth).sum().item(),
@@ -58,6 +62,13 @@ def evaluate(model, query, target, depth, policy, budgets, use_memory):
         "latency_ms": statistics.median(timings),
         "queries": target.numel(),
     }
+    if original is not None:
+        original_query, original_target = original
+        before, _, _ = model.infer(original_query, route, **options)
+        before = before.argmax(1)
+        metrics["paired_accuracy"] = (before.eq(original_target) & correct).float().mean().item()
+        metrics["answer_changed_count"] = before.ne(answers).sum().item()
+    return metrics
 
 
 def run(seed, steps, use_memory):
@@ -77,6 +88,7 @@ def run(seed, steps, use_memory):
                 for policy, metrics in results.items():
                     metrics[f"{split}-{depth}"] = evaluate(
                         model, query, target, depth, policy, budgets, use_memory,
+                        original=episode.at_depth(depth) if split == "counterfactual" else None,
                     )
     return {
         "seed": seed, "steps": steps, "memory": use_memory,

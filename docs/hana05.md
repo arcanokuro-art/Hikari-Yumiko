@@ -68,7 +68,9 @@ de entrenamiento, evaluación y política aleatoria son independientes.
 Cada conjunto evalúa 192 ejemplos por profundidad y semilla. Los JSON
 registran precisión, histograma de ciclos, detenciones tempranas,
 exactas y tardías, certificados de coincidencia y latencia unitaria.
-La latencia es la mediana de 11 pasadas tras tres calentamientos e
+El contrafactual registra además la precisión conjunta del par y los
+cambios de respuesta. La latencia es la mediana de 11 consultas
+unitarias tras tres calentamientos e
 incluye la construcción de la tabla. El pico RSS incluye Python,
 PyTorch, entrenamiento y evaluación. Los tiempos y el RSS de un
 modelo compartido se registran una vez, no como mediciones independientes
