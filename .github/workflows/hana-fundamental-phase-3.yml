@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - run: python -m pip install -r research/fundamental-phase-2/requirements.txt
       - name: Reproduce and verify Phase 2
         working-directory: research/fundamental-phase-2
@@ -37,6 +37,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/phase3"
           python experiment.py --seed "$HANA_SEED" > "$RUNNER_TEMP/phase3/seed-$HANA_SEED.json"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: hana-fundamental-phase-3-seed-${{ matrix.seed }}
           path: |

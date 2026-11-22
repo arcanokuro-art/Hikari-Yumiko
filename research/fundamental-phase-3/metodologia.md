@@ -127,3 +127,13 @@ fuerte. El método no valida un selector en lenguaje natural ni inferencia
 en dispositivos finales. Los cambios OOD conjuntos no aíslan causas,
 por eso se añaden perturbaciones separadas. Ningún resultado justifica
 originalidad de la planificación residual ni ahorro energético.
+
+### Incidencia de reproducción en CI
+
+La primera ejecución en GitHub Actions con Python 3.11 y el reintento
+reprodujeron cuatro semillas. La semilla 101 mostró una diferencia en
+campos deterministas del benchmark histórico. La reproducción local con
+Python 3.12 coincidió en las cinco. El flujo ahora usa Python 3.12,
+conserva los JSON incluso si falla una verificación y expone la ruta
+y los valores de la primera diferencia. Se conserva el criterio original
+de igualdad de las decisiones.

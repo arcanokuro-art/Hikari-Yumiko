@@ -1,8 +1,8 @@
 """Verify Phase 2 against its archived quantitative outcomes."""
+import argparse
 import json
 import math
 from pathlib import Path
-import sys
 
 from residual import PHASE2
 
@@ -18,6 +18,20 @@ def deterministic_fields(p):
     return d
 
 
+def first_difference(expected, actual, prefix=""):
+    if isinstance(expected, dict) and isinstance(actual, dict):
+        for key in sorted(expected.keys() | actual.keys()):
+            if key not in expected or key not in actual:
+                return f"{prefix}/{key}: missing key"
+            result = first_difference(expected[key], actual[key], f"{prefix}/{key}")
+            if result:
+                return result
+        return None
+    if expected != actual:
+        return f"{prefix}: expected {expected!r}, observed {actual!r}"
+    return None
+
+
 def compare(p):
     old = PHASE2 / "results" / p.name
     expected = deterministic_fields(old)
@@ -28,11 +42,16 @@ def compare(p):
         math.isclose(expected_mse[k], actual_mse[k], rel_tol=1e-9, abs_tol=1e-12)
         for k in expected_mse
     )
-    if actual != expected or not same_mse:
-        raise SystemExit(f"{p.name}: mismatch in deterministic fields; inspect both JSON files")
+    difference = first_difference(expected, actual)
+    if difference:
+        raise SystemExit(f"{p.name}: {difference}")
+    if not same_mse:
+        raise SystemExit(f"{p.name}: validation MSE beyond tolerance; expected {expected_mse}, observed {actual_mse}")
     print(f"{p.name}: deterministic Phase 2 results match")
 
 
 if __name__ == "__main__":
-    for name in sys.argv[1:]:
-        compare(Path(name))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("runs", nargs="+", type=Path)
+    for run in parser.parse_args().runs:
+        compare(run)
