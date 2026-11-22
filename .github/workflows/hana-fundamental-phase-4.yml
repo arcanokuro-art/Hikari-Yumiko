@@ -1,0 +1,45 @@
+name: HANA Fundamental Research Fase 4
+on:
+  pull_request:
+    branches: [research/hana-fundamental-phase-3]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [7, 19, 43, 71, 101]
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      HANA_SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r research/fundamental-phase-2/requirements.txt
+      - name: Reproduce Phase 3
+        working-directory: research/fundamental-phase-3
+        run: |
+          python -m unittest -v
+          mkdir -p "$RUNNER_TEMP/phase3"
+          python experiment.py --seed "$HANA_SEED" > "$RUNNER_TEMP/phase3/seed-$HANA_SEED.json"
+          python ../fundamental-phase-4/reproduce.py "$RUNNER_TEMP/phase3/seed-$HANA_SEED.json"
+      - name: Evaluate Phase 4
+        working-directory: research/fundamental-phase-4
+        run: |
+          python -m unittest -v
+          mkdir -p "$RUNNER_TEMP/phase4"
+          python benchmark.py --seed "$HANA_SEED" > "$RUNNER_TEMP/phase4/seed-$HANA_SEED.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hana-fundamental-phase-4-seed-${{ matrix.seed }}
+          path: |
+            ${{ runner.temp }}/phase3/
+            ${{ runner.temp }}/phase4/
