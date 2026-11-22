@@ -1,0 +1,561 @@
+{
+  "seed": 101,
+  "steps": 1800,
+  "validation_mse": {
+    "neural": 0.00037588557335090957,
+    "no-cost": 0.0005219139860638878,
+    "one-step": 0.0004944312927005018
+  },
+  "training_s": {
+    "neural": 0.7038463140002023,
+    "no-cost": 0.6938910230001056,
+    "one-step": 0.5666954929999974
+  },
+  "learned_parameters": 870,
+  "peak_rss_kib_linux": 51496,
+  "operator_median_us": {
+    "local": 1.022228515625,
+    "index": 0.74305078125,
+    "verify": 0.973857421875
+  },
+  "neural_macs_per_decision": 832,
+  "machine": "x86_64",
+  "numpy": "2.3.5",
+  "test": {
+    "id": {
+      "deterministic": {
+        "accuracy": 0.54296875,
+        "utility": 0.486318359375,
+        "cost_units": 3.208984375,
+        "abstention": 0.3525390625,
+        "accesses": 1.736328125,
+        "action_counts": {
+          "answer-0": 323,
+          "answer-1": 340,
+          "abstain": 361,
+          "local": 1024,
+          "index": 377,
+          "verify": 377
+        },
+        "median_us": 11.4215,
+        "p95_us": 25.0865,
+        "n": 1024
+      },
+      "random": {
+        "accuracy": 0.4931640625,
+        "utility": 0.50224609375,
+        "cost_units": 1.728515625,
+        "abstention": 0.4404296875,
+        "accesses": 0.9248046875,
+        "action_counts": {
+          "answer-0": 275,
+          "answer-1": 298,
+          "abstain": 451,
+          "local": 467,
+          "index": 334,
+          "verify": 146
+        },
+        "median_us": 18.741999999999997,
+        "p95_us": 38.91365,
+        "n": 1024
+      },
+      "fixed": {
+        "accuracy": 0.5419921875,
+        "utility": 0.4839404296875,
+        "cost_units": 3.2490234375,
+        "abstention": 0.3525390625,
+        "accesses": 1.7578125,
+        "action_counts": {
+          "answer-0": 322,
+          "answer-1": 341,
+          "abstain": 361,
+          "local": 1024,
+          "index": 388,
+          "verify": 388
+        },
+        "median_us": 9.2335,
+        "p95_us": 19.679,
+        "n": 1024
+      },
+      "oracle": {
+        "accuracy": 0.5361328125,
+        "utility": 0.5617089843749999,
+        "cost_units": 1.1875,
+        "abstention": 0.4296875,
+        "accesses": 0.7421875,
+        "action_counts": {
+          "answer-0": 285,
+          "answer-1": 299,
+          "abstain": 440,
+          "local": 210,
+          "index": 275,
+          "verify": 275
+        },
+        "median_us": 70.674,
+        "p95_us": 291.0642499999999,
+        "n": 1024
+      },
+      "no-cost": {
+        "accuracy": 0.55859375,
+        "utility": 0.5585302734375,
+        "cost_units": 1.6689453125,
+        "abstention": 0.3818359375,
+        "accesses": 0.8935546875,
+        "action_counts": {
+          "answer-0": 297,
+          "answer-1": 336,
+          "abstain": 391,
+          "local": 229,
+          "index": 343,
+          "verify": 343
+        },
+        "median_us": 27.771,
+        "p95_us": 58.874849999999995,
+        "n": 1024
+      },
+      "one-step": {
+        "accuracy": 0.509765625,
+        "utility": 0.542294921875,
+        "cost_units": 0.86328125,
+        "abstention": 0.4072265625,
+        "accesses": 0.5419921875,
+        "action_counts": {
+          "answer-0": 297,
+          "answer-1": 310,
+          "abstain": 417,
+          "local": 380,
+          "index": 88,
+          "verify": 87
+        },
+        "median_us": 14.356000000000002,
+        "p95_us": 60.334999999999994,
+        "n": 1024
+      },
+      "no-memory": {
+        "accuracy": 0.4521484375,
+        "utility": 0.53125,
+        "cost_units": 0,
+        "abstention": 0.498046875,
+        "accesses": 0,
+        "action_counts": {
+          "answer-0": 251,
+          "answer-1": 263,
+          "abstain": 510,
+          "local": 0,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 3.926,
+        "p95_us": 5.180499999999999,
+        "n": 1024
+      },
+      "neural": {
+        "accuracy": 0.5361328125,
+        "utility": 0.54392578125,
+        "cost_units": 1.486328125,
+        "abstention": 0.3837890625,
+        "accesses": 0.9384765625,
+        "action_counts": {
+          "answer-0": 296,
+          "answer-1": 335,
+          "abstain": 393,
+          "local": 295,
+          "index": 335,
+          "verify": 331
+        },
+        "median_us": 28.722,
+        "p95_us": 60.083999999999996,
+        "n": 1024
+      },
+      "myopic": {
+        "accuracy": 0.4951171875,
+        "utility": 0.5496875,
+        "cost_units": 0.470703125,
+        "abstention": 0.45703125,
+        "accesses": 0.275390625,
+        "action_counts": {
+          "answer-0": 268,
+          "answer-1": 288,
+          "abstain": 468,
+          "local": 282,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 23.064,
+        "p95_us": 43.192,
+        "n": 1024
+      }
+    },
+    "ood": {
+      "deterministic": {
+        "accuracy": 0.5302734375,
+        "utility": 0.48649414062499996,
+        "cost_units": 2.869140625,
+        "abstention": 0.373046875,
+        "accesses": 0.9921875,
+        "action_counts": {
+          "answer-0": 312,
+          "answer-1": 330,
+          "abstain": 382,
+          "local": 958,
+          "index": 29,
+          "verify": 29
+        },
+        "median_us": 11.247,
+        "p95_us": 20.74229999999998,
+        "n": 1024
+      },
+      "random": {
+        "accuracy": 0.49609375,
+        "utility": 0.501025390625,
+        "cost_units": 1.77734375,
+        "abstention": 0.4443359375,
+        "accesses": 0.6298828125,
+        "action_counts": {
+          "answer-0": 280,
+          "answer-1": 289,
+          "abstain": 455,
+          "local": 432,
+          "index": 151,
+          "verify": 62
+        },
+        "median_us": 18.713,
+        "p95_us": 28.998849999999997,
+        "n": 1024
+      },
+      "fixed": {
+        "accuracy": 0.5302734375,
+        "utility": 0.48587890624999996,
+        "cost_units": 2.88671875,
+        "abstention": 0.373046875,
+        "accesses": 1,
+        "action_counts": {
+          "answer-0": 312,
+          "answer-1": 330,
+          "abstain": 382,
+          "local": 958,
+          "index": 33,
+          "verify": 33
+        },
+        "median_us": 9.164,
+        "p95_us": 19.363149999999997,
+        "n": 1024
+      },
+      "oracle": {
+        "accuracy": 0.4990234375,
+        "utility": 0.5482421875,
+        "cost_units": 0.693359375,
+        "abstention": 0.490234375,
+        "accesses": 0.2724609375,
+        "action_counts": {
+          "answer-0": 242,
+          "answer-1": 280,
+          "abstain": 502,
+          "local": 279,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 31.486,
+        "p95_us": 132.07099999999986,
+        "n": 1024
+      },
+      "no-cost": {
+        "accuracy": 0.505859375,
+        "utility": 0.5468603515625,
+        "cost_units": 0.8095703125,
+        "abstention": 0.46484375,
+        "accesses": 0.279296875,
+        "action_counts": {
+          "answer-0": 259,
+          "answer-1": 289,
+          "abstain": 476,
+          "local": 286,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 13.6655,
+        "p95_us": 29.023,
+        "n": 1024
+      },
+      "one-step": {
+        "accuracy": 0.4892578125,
+        "utility": 0.548505859375,
+        "cost_units": 0.37890625,
+        "abstention": 0.484375,
+        "accesses": 0.15625,
+        "action_counts": {
+          "answer-0": 255,
+          "answer-1": 273,
+          "abstain": 496,
+          "local": 158,
+          "index": 1,
+          "verify": 1
+        },
+        "median_us": 13.8305,
+        "p95_us": 29.734,
+        "n": 1024
+      },
+      "no-memory": {
+        "accuracy": 0.4580078125,
+        "utility": 0.53564453125,
+        "cost_units": 0,
+        "abstention": 0.5087890625,
+        "accesses": 0,
+        "action_counts": {
+          "answer-0": 240,
+          "answer-1": 263,
+          "abstain": 521,
+          "local": 0,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 3.906,
+        "p95_us": 4.35285,
+        "n": 1024
+      },
+      "neural": {
+        "accuracy": 0.4833984375,
+        "utility": 0.5470605468749999,
+        "cost_units": 0.30859375,
+        "abstention": 0.4951171875,
+        "accesses": 0.1259765625,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 269,
+          "abstain": 507,
+          "local": 129,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 13.69,
+        "p95_us": 29.506149999999998,
+        "n": 1024
+      },
+      "myopic": {
+        "accuracy": 0.4990234375,
+        "utility": 0.5482421875,
+        "cost_units": 0.693359375,
+        "abstention": 0.490234375,
+        "accesses": 0.2724609375,
+        "action_counts": {
+          "answer-0": 242,
+          "answer-1": 280,
+          "abstain": 502,
+          "local": 279,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 22.2675,
+        "p95_us": 46.41629999999997,
+        "n": 1024
+      }
+    },
+    "unhelpful": {
+      "deterministic": {
+        "accuracy": 0.458984375,
+        "utility": 0.42826171874999996,
+        "cost_units": 3.27734375,
+        "abstention": 0.5361328125,
+        "accesses": 1.78125,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 1024,
+          "index": 400,
+          "verify": 400
+        },
+        "median_us": 11.587499999999999,
+        "p95_us": 25.136499999999998,
+        "n": 1024
+      },
+      "random": {
+        "accuracy": 0.458984375,
+        "utility": 0.484521484375,
+        "cost_units": 1.669921875,
+        "abstention": 0.5361328125,
+        "accesses": 0.8984375,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 456,
+          "index": 330,
+          "verify": 134
+        },
+        "median_us": 18.6125,
+        "p95_us": 38.58,
+        "n": 1024
+      },
+      "fixed": {
+        "accuracy": 0.458984375,
+        "utility": 0.42826171874999996,
+        "cost_units": 3.27734375,
+        "abstention": 0.5361328125,
+        "accesses": 1.78125,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 1024,
+          "index": 400,
+          "verify": 400
+        },
+        "median_us": 9.3385,
+        "p95_us": 19.689,
+        "n": 1024
+      },
+      "oracle": {
+        "accuracy": 0.458984375,
+        "utility": 0.54296875,
+        "cost_units": 0,
+        "abstention": 0.5361328125,
+        "accesses": 0,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 0,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 52.467,
+        "p95_us": 189.60029999999998,
+        "n": 1024
+      },
+      "no-cost": {
+        "accuracy": 0.458984375,
+        "utility": 0.5426953125,
+        "cost_units": 0.0078125,
+        "abstention": 0.5361328125,
+        "accesses": 0.0048828125,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 3,
+          "index": 1,
+          "verify": 1
+        },
+        "median_us": 13.71,
+        "p95_us": 14.468499999999999,
+        "n": 1024
+      },
+      "one-step": {
+        "accuracy": 0.458984375,
+        "utility": 0.5417041015625,
+        "cost_units": 0.0361328125,
+        "abstention": 0.5361328125,
+        "accesses": 0.029296875,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 9,
+          "index": 14,
+          "verify": 7
+        },
+        "median_us": 13.76,
+        "p95_us": 16.532,
+        "n": 1024
+      },
+      "no-memory": {
+        "accuracy": 0.458984375,
+        "utility": 0.54296875,
+        "cost_units": 0,
+        "abstention": 0.5361328125,
+        "accesses": 0,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 0,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 3.936,
+        "p95_us": 5.241,
+        "n": 1024
+      },
+      "neural": {
+        "accuracy": 0.458984375,
+        "utility": 0.540576171875,
+        "cost_units": 0.068359375,
+        "abstention": 0.5361328125,
+        "accesses": 0.056640625,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 30,
+          "index": 14,
+          "verify": 14
+        },
+        "median_us": 13.66,
+        "p95_us": 27.784999999999993,
+        "n": 1024
+      },
+      "myopic": {
+        "accuracy": 0.458984375,
+        "utility": 0.54296875,
+        "cost_units": 0,
+        "abstention": 0.5361328125,
+        "accesses": 0,
+        "action_counts": {
+          "answer-0": 248,
+          "answer-1": 227,
+          "abstain": 549,
+          "local": 0,
+          "index": 0,
+          "verify": 0
+        },
+        "median_us": 22.383,
+        "p95_us": 35.997499999999995,
+        "n": 1024
+      }
+    }
+  },
+  "counterfactual": {
+    "deterministic": {
+      "action_change_rate": 0.1953125,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.15384615384615385
+    },
+    "fixed": {
+      "action_change_rate": 0.1953125,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.15384615384615385
+    },
+    "oracle": {
+      "action_change_rate": 0.203125,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 1.0
+    },
+    "no-cost": {
+      "action_change_rate": 0.078125,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.15384615384615385
+    },
+    "one-step": {
+      "action_change_rate": 0.3984375,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.6153846153846154
+    },
+    "no-memory": {
+      "action_change_rate": 0.0,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.0
+    },
+    "neural": {
+      "action_change_rate": 0.265625,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.6923076923076923
+    },
+    "myopic": {
+      "action_change_rate": 0.2734375,
+      "eligible_pairs": 26,
+      "oracle_pair_agreement": 0.7307692307692307
+    }
+  },
+  "energy_joules": null
+}
